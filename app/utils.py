@@ -8,7 +8,6 @@ USER_AGENT = "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTM
 
 MEDAL_DATA_URL = "https://olympics.com/OG2024/data/CIS_MedalNOCs~lang=ENG~comp=OG2024.json"
 NOC_CODES_URL = "https://olympics.com/OG2024/data/MIS_NOCS~lang=ENG~comp=OG2024.json"
-COUNTRY_CODE_URL = "https://en.wikipedia.org/wiki/Comparison_of_alphabetic_country_codes"
 HEADERS = {'User-Agent': USER_AGENT}
 
 def get_medal_summary(noc_codes: Optional[List[str]] = None) -> Dict[str, Union[str, int, List[Dict[str, Union[Dict[str, str], Dict[str, int]]]]]]:
