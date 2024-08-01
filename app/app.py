@@ -1,6 +1,7 @@
-from fastapi import FastAPI
-from fastapi.responses import HTMLResponse
-from app.utils import get_olympic_data
+from fastapi import FastAPI, Query
+from fastapi.responses import JSONResponse, HTMLResponse
+from typing import Optional
+from app.utils import get_medal_summary
 
 app = FastAPI()
 
@@ -20,7 +21,8 @@ def read_root():
     </html>
     """
 
-@app.get("/olympics")
-def get_olympics_data():
-    data = get_olympic_data()
-    return {"data": data}
+@app.get("/medals")
+def get_medals(country: Optional[str] = Query(None)):
+    country_list = country.split(',') if country else []
+    results = get_medal_summary(noc_codes=country_list)
+    return JSONResponse(content=results)
