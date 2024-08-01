@@ -2,8 +2,6 @@ from datetime import datetime
 from typing import List, Dict, Optional, Tuple, Union
 import requests
 import json
-import pycountry
-from bs4 import BeautifulSoup
 from pathlib import Path
 
 USER_AGENT = "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/58.0.3029.110 Safari/537.36"
@@ -109,42 +107,6 @@ def sort_medal_results(results: List[Dict[str, Union[Dict[str, str], Dict[str, i
         current_rank += 1
 
     return sorted(results, key=lambda x: (x["rank"], x["country"]["code"]))
-
-def get_country_codes() -> Tuple[List[Dict[str, str]], Dict[str, Dict[str, str]]]:
-    response = requests.get(COUNTRY_CODE_URL, headers=HEADERS)
-    soup = BeautifulSoup(response.content, "html.parser")
-    noc_table = soup.find("table", {"class": "wikitable"})
-
-    def extract_code(cell: str) -> Optional[str]:
-        if not cell.strip() or cell.startswith("[") or cell.startswith("]"):
-            return None
-        return cell.strip()
-
-    codes = []
-    for row in noc_table.find_all("tr")[1:]:
-        columns = row.find_all("td")
-
-        country_name = extract_code(columns[1].find("a").text)
-        ioc_code = extract_code(columns[2].text)
-        fifa_code = extract_code(columns[3].text)
-        iso_alpha_3 = extract_code(columns[4].text.strip())
-
-        iso_alpha_2 = None
-        if iso_alpha_3:
-            try:
-                country = pycountry.countries.lookup(iso_alpha_3)
-                iso_alpha_2 = country.alpha_2
-            except LookupError:
-                pass
-
-        codes.append({
-            "country_name": country_name,
-            "ioc_noc_code": ioc_code,
-            "fifa_code": fifa_code,
-            "iso_alpha_3": iso_alpha_3,
-            "iso_alpha_2": iso_alpha_2,
-        })
-    return codes
 
 def load_country_codes() -> List[Dict[str, Optional[str]]]:
     file_path = Path(__file__).parent / 'data' / 'countries.json'
