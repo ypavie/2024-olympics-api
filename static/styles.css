@@ -1,0 +1,130 @@
+* {
+    font-family: system-ui;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    background-color: #2c2f36;
+    color: #e0e0e0;
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+}
+
+.container {
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+}
+
+header {
+    display: flex;
+    align-items: center;
+    padding: 20px;
+    justify-content: center;
+    position: relative;
+}
+
+header h1 {
+    color: #ffffff;
+    margin: 0;
+    margin-right: 10px; /* Space between title and logo */
+}
+
+.medal-table {
+    display: grid;
+    grid-template-columns: auto auto auto auto auto auto;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    margin: 20px;
+}
+
+.titles,
+.row {
+    display: contents;
+}
+
+.titles span,
+.row .rank,
+.row .country-info,
+.row .medal-info span {
+    text-align: center;
+    padding: 10px;
+    font-weight: bold;
+    color: #e0e0e0;
+}
+
+.row {
+    border-bottom: 1px solid #444;
+    background-color: #3e434d;
+}
+
+.row:nth-child(odd) {
+    background-color: #3e434d;
+}
+
+.row:nth-child(even) {
+    background-color: #4b4f5a;
+}
+
+.country-info {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.country-info .flag {
+    margin-right: 5px;
+}
+
+.medal-info {
+    display: contents;
+}
+
+.row .rank,
+.row .country-info,
+.row .gold,
+.row .silver,
+.row .bronze,
+.row .total {
+    padding: 10px;
+}
+
+.total {
+    font-weight: bold;
+}
+
+.medal {
+    display: inline-block;
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+    text-align: center;
+    line-height: 12px;
+    color: #ffffff;
+    font-weight: bold;
+    font-size: 16px;
+    margin: 0 3px;
+    border: 1px solid #333;
+    text-shadow: 0 0 1px #333, 0 0 2px #333, 0 0 3px #333, 0 0 4px #333;
+}
+
+.title-gold {
+    background-color: #ffd700;
+}
+
+.title-silver {
+    background-color: #c0c0c0;
+}
+
+.title-bronze {
+    background-color: #cd7f32;
+}
+
+footer {
+    padding: 20px;
+    text-align: center;
+    color: #e0e0e0;
+}

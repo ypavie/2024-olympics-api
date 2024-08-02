@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>2024 Paris Olympic Data Unofficial API</title>
+    <link rel="stylesheet" href="/static/styles.css">
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>2024 Paris Olympic data unofficial API</h1>
+        </header>
+        <main>
+            <div class="medal-table">
+                <div class="titles">
+                    <span class="title-rank">Rank</span>
+                    <span class="title-country">Country</span>
+                    <span class="title-gold medal gold" title="Gold">G</span>
+                    <span class="title-silver medal silver" title="Silver">S</span>
+                    <span class="title-bronze medal bronze" title="Bronze">B</span>
+                    <span class="title-total">Total</span>
+                </div>
+                {% for item in medal_data %}
+                <div class="row">
+                    <div class="rank">{{ loop.index }}</div>
+                    <div class="country-info">
+                        <img src="https://gstatic.olympics.com/s1/t_original/static/noc/oly/3x2/180x120/{{ item.country.code }}.png" width="32" height="22" loading="lazy" alt="{{ item.country.name }} flag" title="{{ item.country.name }} flag" class="flag">
+                        <span class="country-code">{{ item.country.code }}</span>
+                    </div>
+                    <div class="medal-info">
+                        <span class="gold">{{ item.medals.gold }}</span>
+                        <span class="silver">{{ item.medals.silver }}</span>
+                        <span class="bronze">{{ item.medals.bronze }}</span>
+                        <span class="total">{{ item.total }}</span>
+                    </div>
+                </div>
+                {% endfor %}
+            </div>
+        </main>
+    </div>
+    <footer>
+        <p>&copy; All data and rights related to Olympic Games values and information are property of the International Olympic Committee (IOC).</p>
+    </footer>
+</body>
+</html>

@@ -28,6 +28,23 @@ def get_medal_summary(noc_codes: Optional[List[str]] = None) -> Dict[str, Union[
         "results": medal_data,
     }
 
+def get_top_medals(top=3) -> Dict[str, Union[str, int, List[Dict[str, Union[Dict[str, str], Dict[str, int]]]]]]:
+    try:
+        last_updated, medal_data, source_url = retrieve_medal_data()
+    except Exception as e:
+        return {}
+
+    medal_data = medal_data[:top]
+
+    medal_data = add_iso_codes(results=medal_data)
+
+    return {
+        "last_updated": last_updated,
+        "source": source_url,
+        "total_results": len(medal_data),
+        "results": medal_data,
+    }
+
 def filter_medals_by_noc(data: List[Dict[str, any]], noc_code: str) -> List[Dict[str, any]]:
     filtered_data = [item for item in data if item["country"]["code"].lower() == noc_code.lower()]
     return filtered_data
@@ -71,9 +88,9 @@ def prepare_medal_results(medal_counts: Dict[str, Dict[str, int]], noc_codes: Di
                 "name": noc_codes.get(noc_code, {}).get("name", "None"),
             },
             "medals": {
-                "bronze": data["bronze"],
                 "gold": data["gold"],
                 "silver": data["silver"],
+                "bronze": data["bronze"],
                 "total": data["bronze"] + data["gold"] + data["silver"],
             },
             "rank": data["rank"],
