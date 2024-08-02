@@ -139,7 +139,7 @@ footer {
     color: #e0e0e0;
 }
 
-#timer {
+.timer {
     font-size: 2em;
     text-align: center;
     margin-top: 20px;
